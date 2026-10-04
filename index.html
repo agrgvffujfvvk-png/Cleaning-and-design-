@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <title>مُرتّب | تنظيم الدروس والشرح والمقالات</title>
+
+  <meta name="description"
+        content="منصة احترافية لتنظيم الدروس والشرح والمقالات وتحويلها إلى مستندات جاهزة للحفظ والطباعة.">
+
+  <!-- مكتبات المعالجة والتصدير -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs"
+          type="module"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/9.5.1/index.iife.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- =====================================================
+       APP SHELL
+  ====================================================== -->
+
+  <div id="app">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+
+      <button class="icon-btn mobile-only"
+              id="mobileMenuBtn"
+              aria-label="فتح القائمة">
+        ☰
+      </button>
+
+      <div class="brand">
+        <div class="brand-mark">م</div>
+
+        <div class="brand-text">
+          <strong data-i18n="appName">مُرتّب</strong>
+          <span data-i18n="appSubtitle">
+            تنظيم المحتوى باحتراف
+          </span>
+        </div>
+      </div>
+
+      <div class="top-actions">
+
+        <button class="help-btn"
+                id="helpBtn"
+                type="button">
+          <span>✦</span>
+          <span data-i18n="whatCanIDo">ماذا يمكنني أن أفعل؟</span>
+        </button>
+
+        <button class="icon-btn"
+                id="settingsBtn"
+                type="button"
+                aria-label="الإعدادات">
+          ⚙
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN NAVIGATION
+    ====================================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+      <div class="sidebar-inner">
+
+        <button class="nav-item active"
+                data-page="home">
+
+          <span class="nav-icon">⌂</span>
+          <span data-i18n="home">الرئيسية</span>
+
+        </button>
+
+        <button class="nav-item"
+                data-page="workspace">
+
+          <span class="nav-icon">✎</span>
+          <span data-i18n="workspace">مساحة العمل</span>
+
+        </button>
+
+        <button class="nav-item"
+                data-page="saved">
+
+          <span class="nav-icon">▣</span>
+          <span data-i18n="saved">المحفوظات</span>
+
+        </button>
+
+      </div>
+
+      <div class="sidebar-footer">
+        <span>مـدرســة شـعــلة النـور</span>
+      </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+      <!-- ================= HOME ================= -->
+
+      <section class="page active"
+               id="homePage">
+
+        <div class="hero">
+
+          <div class="hero-badge">
+            <span class="pulse-dot"></span>
+            <span data-i18n="ready">جاهز لتنظيم محتواك</span>
+          </div>
+
+          <h1 data-i18n="heroTitle">
+            حوّل المحتوى الخام<br>
+            إلى مستند احترافي.
+          </h1>
+
+          <p data-i18n="heroDescription">
+            أضف نصاً أو ملفاً أو صورة، ثم عدّل المحتوى
+            وشاهد النتيجة مباشرة قبل حفظها.
+          </p>
+
+        </div>
+
+
+        <!-- INPUT CARDS -->
+
+        <div class="input-grid">
+
+          <button class="input-card"
+                  data-source="file">
+
+            <div class="card-icon file-icon">
+              📄
+            </div>
+
+            <div class="card-content">
+
+              <h2 data-i18n="fileTitle">
+                ملف
+              </h2>
+
+              <p data-i18n="fileDescription">
+                استخرج النص من ملف وابدأ تنظيمه.
+              </p>
+
+              <span class="card-action">
+                <span data-i18n="chooseFile">اختيار ملف</span>
+                →
+              </span>
+
+            </div>
+
+          </button>
+
+
+          <button class="input-card"
+                  data-source="image">
+
+            <div class="card-icon image-icon">
+              🖼
+            </div>
+
+            <div class="card-content">
+
+              <h2 data-i18n="imageTitle">
+                صورة
+              </h2>
+
+              <p data-i18n="imageDescription">
+                استخرج النص من صورة أو صفحة مصورة.
+              </p>
+
+              <span class="card-action">
+                <span data-i18n="chooseImage">اختيار صورة</span>
+                →
+              </span>
+
+            </div>
+
+          </button>
+
+
+          <button class="input-card"
+                  data-source="text">
+
+            <div class="card-icon text-icon">
+              T
+            </div>
+
+            <div class="card-content">
+
+              <h2 data-i18n="textTitle">
+                نص
+              </h2>
+
+              <p data-i18n="textDescription">
+                اكتب أو الصق المحتوى بنفسك.
+              </p>
+
+              <span class="card-action">
+                <span data-i18n="writeText">ابدأ الكتابة</span>
+                →
+              </span>
+
+            </div>
+
+          </button>
+
+        </div>
+
+
+        <!-- QUICK INFO -->
+
+        <div class="home-info">
+
+          <div class="info-item">
+            <span>✦</span>
+            <div>
+              <strong data-i18n="livePreview">
+                معاينة حية
+              </strong>
+              <small data-i18n="livePreviewDesc">
+                شاهد المستند أثناء تعديله.
+              </small>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <span>◈</span>
+            <div>
+              <strong data-i18n="multipleFormats">
+                عدة صيغ
+              </strong>
+              <small data-i18n="multipleFormatsDesc">
+                ملف عادي، PDF أو صور.
+              </small>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <span>✓</span>
+            <div>
+              <strong data-i18n="manualEdit">
+                تعديل يدوي
+              </strong>
+              <small data-i18n="manualEditDesc">
+                أنت تتحكم في النتيجة النهائية.
+              </small>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================= WORKSPACE ================= -->
+
+      <section class="page"
+               id="workspacePage">
+
+        <div class="workspace-header">
+
+          <div>
+
+            <button class="back-btn"
+                    id="backHomeBtn">
+              ←
+              <span data-i18n="back">رجوع</span>
+            </button>
+
+            <h1 id="workspaceTitle"
+                data-i18n="newDocument">
+              مستند جديد
+            </h1>
+
+          </div>
+
+          <div class="workspace-actions">
+
+            <button class="secondary-btn"
+                    id="resetBtn">
+              ↻
+              <span data-i18n="reset">إعادة ضبط</span>
+            </button>
+
+            <button class="primary-btn"
+                    id="saveDocumentBtn">
+              ↓
+              <span data-i18n="saveDocument">
+                حفظ المستند
+              </span>
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="workspace">
+
+          <!-- EDITOR -->
+
+          <section class="editor-panel">
+
+            <div class="panel-title">
+              <div>
+                <span class="panel-kicker"
+                      data-i18n="content">
+                  المحتوى
+                </span>
+
+                <h2 data-i18n="editDocument">
+                  تحرير المستند
+                </h2>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="documentTitle"
+                     data-i18n="documentTitle">
+                عنوان المستند
+              </label>
+
+              <input id="documentTitle"
+                     type="text"
+                     placeholder="اكتب عنوان المستند..."
+                     data-i18n-placeholder="titlePlaceholder">
+
+            </div>
+
+
+            <div class="form-row">
+
+              <div class="form-group">
+
+                <label for="documentType"
+                       data-i18n="documentType">
+                  نوع المحتوى
+                </label>
+
+                <select id="documentType">
+
+                  <option value="lesson"
+                          data-i18n="lesson">
+                    درس
+                  </option>
+
+                  <option value="explanation"
+                          data-i18n="explanation">
+                    شرح
+                  </option>
+
+                  <option value="article"
+                          data-i18n="article">
+                    مقالة
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="fontSelect"
+                       data-i18n="font">
+                  الخط
+                </label>
+
+                <select id="fontSelect">
+
+                  <option value="system">
+                    النظام
+                  </option>
+
+                  <option value="serif">
+                    Serif
+                  </option>
+
+                  <option value="sans">
+                    Sans
+                  </option>
+
+                  <option value="amiri">
+                    Amiri
+                  </option>
+
+                </select>
+
+              </div>
+
+            </div>
+
+
+            <!-- TOOLBAR -->
+
+            <div class="editor-toolbar">
+
+              <button type="button"
+                      data-command="bold"
+                      title="عريض">
+                B
+              </button>
+
+              <button type="button"
+                      data-command="italic"
+                      title="مائل">
+                I
+              </button>
+
+              <button type="button"
+                      data-command="underline"
+                      title="تحته خط">
+                U
+              </button>
+
+              <span class="toolbar-divider"></span>
+
+              <button type="button"
+                      data-command="heading"
+                      title="عنوان">
+                H
+              </button>
+
+              <button type="button"
+                      data-command="paragraph"
+                      title="فقرة">
+                ¶
+              </button>
+
+              <button type="button"
+                      data-command="list"
+                      title="قائمة">
+                ≡
+              </button>
+
+              <span class="toolbar-divider"></span>
+
+              <button type="button"
+                      data-command="alignRight">
+                ≫
+              </button>
+
+              <button type="button"
+                      data-command="alignCenter">
+                ≡
+              </button>
+
+              <button type="button"
+                      data-command="alignLeft">
+                ≪
+              </button>
+
+            </div>
+
+
+            <!-- EDITOR -->
+
+            <div class="editor-wrapper">
+
+              <div id="editor"
+                   class="editor"
+                   contenteditable="true"
+                   spellcheck="true"
+                   data-placeholder="اكتب أو الصق محتوى المستند هنا..."
+                   data-i18n-placeholder="editorPlaceholder">
+              </div>
+
+            </div>
+
+
+            <div class="editor-footer">
+
+              <span id="wordCount">
+                0 كلمة
+              </span>
+
+              <span id="characterCount">
+                0 حرف
+              </span>
+
+            </div>
+
+          </section>
+
+
+          <!-- PREVIEW -->
+
+          <section class="preview-panel">
+
+            <div class="preview-header">
+
+              <div>
+
+                <span class="panel-kicker"
+                      data-i18n="preview">
+                  المعاينة
+                </span>
+
+                <h2 data-i18n="liveDocument">
+                  المستند النهائي
+                </h2>
+
+              </div>
+
+              <div class="preview-controls">
+
+                <button id="zoomOutBtn"
+                        class="mini-btn">
+                  −
+                </button>
+
+                <span id="zoomValue">
+                  100%
+                </span>
+
+                <button id="zoomInBtn"
+                        class="mini-btn">
+                  +
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <div class="preview-stage"
+                 id="previewStage">
+
+              <div class="paper"
+                   id="documentPreview">
+
+                <header class="paper-header">
+
+                  <div class="school-name">
+                    مـدرســة شـعــلة النـور
+                  </div>
+
+                  <div class="paper-line"></div>
+
+                </header>
+
+
+                <main class="paper-content">
+
+                  <h1 id="previewTitle">
+                    عنوان المستند
+                  </h1>
+
+                  <div class="document-meta">
+
+                    <span id="previewType">
+                      درس
+                    </span>
+
+                  </div>
+
+                  <div id="previewContent"
+                       class="preview-content">
+
+                    <p class="preview-empty">
+                      ابدأ بكتابة المحتوى لتظهر
+                      المعاينة هنا.
+                    </p>
+
+                  </div>
+
+                </main>
+
+
+                <footer class="paper-footer">
+
+                  <span>
+                    مـدرســة شـعــلة النـور
+                  </span>
+
+                  <span class="page-number">
+                    <span data-i18n="page">صفحة</span>
+                    1
+                  </span>
+
+                </footer>
+
+              </div>
+
+            </div>
+
+          </section>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================= SAVED ================= -->
+
+      <section class="page"
+               id="savedPage">
+
+        <div class="section-heading">
+
+          <span class="panel-kicker"
+                data-i18n="library">
+            المكتبة
+          </span>
+
+          <h1 data-i18n="savedDocuments">
+            المستندات المحفوظة
+          </h1>
+
+          <p data-i18n="savedDescription">
+            المستندات التي حفظتها على هذا الجهاز.
+          </p>
+
+        </div>
+
+        <div id="savedDocuments"
+             class="saved-grid">
+
+          <div class="empty-state">
+
+            <div class="empty-icon">
+              ◫
+            </div>
+
+            <h2 data-i18n="noSavedDocuments">
+              لا توجد مستندات محفوظة
+            </h2>
+
+            <p data-i18n="noSavedDescription">
+              أنشئ مستنداً وسيظهر هنا.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- =====================================================
+       FILE INPUTS
+  ====================================================== -->
+
+  <input id="fileInput"
+         type="file"
+         hidden
+         accept=".pdf,.txt,.docx">
+
+  <input id="imageInput"
+         type="file"
+         hidden
+         accept="image/*">
+
+
+  <!-- =====================================================
+       SAVE MODAL
+  ====================================================== -->
+
+  <div class="modal-overlay"
+       id="saveModal"
+       aria-hidden="true">
+
+    <div class="modal save-modal">
+
+      <button class="modal-close"
+              data-close="saveModal">
+        ×
+      </button>
+
+      <div class="modal-icon">
+        ↓
+      </div>
+
+      <h2 data-i18n="saveTitle">
+        حفظ المستند
+      </h2>
+
+      <p data-i18n="saveDescription">
+        اختر الصيغة التي تريد حفظ المستند بها.
+      </p>
+
+
+      <div class="export-options">
+
+        <button class="export-card"
+                data-export="document">
+
+          <span class="export-icon">📄</span>
+
+          <span>
+            <strong data-i18n="normalFile">
+              ملف عادي
+            </strong>
+
+            <small data-i18n="normalFileDesc">
+              مستند قابل للتحرير
+            </small>
+          </span>
+
+          <b>→</b>
+
+        </button>
+
+
+        <button class="export-card"
+                data-export="pdf">
+
+          <span class="export-icon">📕</span>
+
+          <span>
+            <strong>PDF</strong>
+
+            <small data-i18n="pdfDesc">
+              جاهز للطباعة
+            </small>
+          </span>
+
+          <b>→</b>
+
+        </button>
+
+
+        <button class="export-card"
+                data-export="images">
+
+          <span class="export-icon">🖼</span>
+
+          <span>
+            <strong data-i18n="images">
+              صور
+            </strong>
+
+            <small data-i18n="imagesDesc">
+              حفظ صفحات المستند كصور
+            </small>
+          </span>
+
+          <b>→</b>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       SETTINGS MODAL
+  ====================================================== -->
+
+  <div class="modal-overlay"
+       id="settingsModal"
+       aria-hidden="true">
+
+    <div class="modal settings-modal">
+
+      <button class="modal-close"
+              data-close="settingsModal">
+        ×
+      </button>
+
+      <div class="modal-heading">
+
+        <div class="modal-icon">
+          ⚙
+        </div>
+
+        <div>
+          <span class="panel-kicker"
+                data-i18n="preferences">
+            التفضيلات
+          </span>
+
+          <h2 data-i18n="settings">
+            الإعدادات
+          </h2>
+        </div>
+
+      </div>
+
+
+      <div class="settings-list">
+
+        <div class="setting-row">
+
+          <div>
+            <strong data-i18n="language">
+              اللغة
+            </strong>
+
+            <small data-i18n="languageDesc">
+              لغة واجهة الموقع
+            </small>
+          </div>
+
+          <select id="languageSelect">
+
+            <option value="ar">
+              العربية
+            </option>
+
+            <option value="en">
+              English
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="setting-row">
+
+          <div>
+            <strong data-i18n="appearance">
+              المظهر
+            </strong>
+
+            <small data-i18n="appearanceDesc">
+              اختر شكل الواجهة
+            </small>
+          </div>
+
+          <select id="themeSelect">
+
+            <option value="light"
+                    data-i18n="light">
+              فاتح
+            </option>
+
+            <option value="dark"
+                    data-i18n="dark">
+              داكن
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       HELP / WHAT CAN I DO
+  ====================================================== -->
+
+  <div class="modal-overlay"
+       id="helpModal"
+       aria-hidden="true">
+
+    <div class="modal help-modal">
+
+      <button class="modal-close"
+              data-close="helpModal">
+        ×
+      </button>
+
+      <div class="help-header">
+
+        <div class="modal-icon magic">
+          ✦
+        </div>
+
+        <span class="panel-kicker"
+              data-i18n="guide">
+          دليل سريع
+        </span>
+
+        <h2 data-i18n="whatCanIDo">
+          ماذا يمكنني أن أفعل؟
+        </h2>
+
+        <p data-i18n="guideDescription">
+          شاهد كيف يتحول محتواك من مادة خام
+          إلى مستند جاهز للحفظ والطباعة.
+        </p>
+
+      </div>
+
+
+      <div class="process-flow">
+
+        <div class="process-step">
+
+          <div class="process-icon">
+            <span>📄</span>
+            <span>🖼</span>
+            <span>✎</span>
+          </div>
+
+          <strong data-i18n="stepInput">
+            أضف المحتوى
+          </strong>
+
+        </div>
+
+
+        <div class="flow-arrow">
+          →
+        </div>
+
+
+        <div class="process-step">
+
+          <div class="process-icon">
+            ✦
+          </div>
+
+          <strong data-i18n="stepExtract">
+            استخراج وتنظيم
+          </strong>
+
+        </div>
+
+
+        <div class="flow-arrow">
+          →
+        </div>
+
+
+        <div class="process-step">
+
+          <div class="process-icon">
+            ✎
+          </div>
+
+          <strong data-i18n="stepEdit">
+            عدّل بنفسك
+          </strong>
+
+        </div>
+
+
+        <div class="flow-arrow">
+          →
+        </div>
+
+
+        <div class="process-step">
+
+          <div class="process-icon">
+            👁
+          </div>
+
+          <strong data-i18n="stepPreview">
+            شاهد النتيجة
+          </strong>
+
+        </div>
+
+
+        <div class="flow-arrow">
+          →
+        </div>
+
+
+        <div class="process-step">
+
+          <div class="process-icon">
+            ↓
+          </div>
+
+          <strong data-i18n="stepSave">
+            احفظ
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="help-formats">
+
+        <span>📄 ملف</span>
+        <span>📕 PDF</span>
+        <span>🖼 صور</span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       TOAST
+  ====================================================== -->
+
+  <div id="toast"
+       class="toast">
+
+    <span id="toastIcon">✓</span>
+
+    <span id="toastMessage">
+      تم الحفظ
+    </span>
+
+  </div>
+
+
+  <!-- =====================================================
+       SCRIPTS
+  ====================================================== -->
+
+  <script src="assets.js"></script>
+  <script src="extractor.js"></script>
+  <script src="exporter.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
